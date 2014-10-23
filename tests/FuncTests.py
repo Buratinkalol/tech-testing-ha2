@@ -10,7 +10,7 @@ from selenium.webdriver import DesiredCapabilities, Remote
 class FuncTests(unittest.TestCase):
 
     def setUp(self):
-        browser = os.environ.get('TTHA2BROWSER', 'FIREFOX')
+        browser = os.environ.get('TTHA2BROWSER', 'CHROME')
 
         self.driver = Remote(
             command_executor='http://127.0.0.1:4444/wd/hub',
