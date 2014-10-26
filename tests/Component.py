@@ -15,13 +15,13 @@ class EditData(Component):
     WEEKEND = '[data-name="weekends"]'
 
     def choice_time(self):
-        element = WebDriverWait(self.driver, 30, 0.1).until(
+        element = WebDriverWait(self.driver, 30, 1).until(
             lambda d: d.find_element_by_css_selector(self.TIME)
         )
         element.click()
 
     def choice_weekends(self):
-        element = WebDriverWait(self.driver, 30, 0.1).until(
+        element = WebDriverWait(self.driver, 30, 1).until(
             lambda d: d.find_element_by_css_selector(self.WEEKEND)
         )
         element.click()
@@ -49,7 +49,7 @@ class TopMenu(Component):
     EMAIL = '#PH_user-email'
 
     def get_email(self):
-        return WebDriverWait(self.driver, 30, 0.1).until(
+        return WebDriverWait(self.driver, 30, 0.5).until(
             lambda d: d.find_element_by_css_selector(self.EMAIL).text
         )
 
@@ -58,7 +58,7 @@ class Slider(Component):
     SLIDER = '.price-slider__begunok'
 
     def move(self, offset):
-        element = WebDriverWait(self.driver, 30, 0.1).until(
+        element = WebDriverWait(self.driver, 30, 0.5).until(
             lambda d: d.find_element_by_css_selector(self.SLIDER)
         )
         ac = ActionChains(self.driver)
@@ -71,20 +71,20 @@ class BeginnerSet(Component):
     PADS_TARGET = '#pad-mobile_app_feed'
 
     def campaign_name(self, campaign_name):
-        element = WebDriverWait(self.driver, 30, 0.1).until(
+        element = WebDriverWait(self.driver, 30, 1).until(
             lambda d: d.find_element_by_css_selector(self.CAMP_NAME)
         )
         element.clear()
         element.send_keys(campaign_name)
 
     def product_type(self):
-        element = WebDriverWait(self.driver, 30, 0.1).until(
+        element = WebDriverWait(self.driver, 30, 1).until(
             lambda d: d.find_element_by_css_selector(self.PRODUCT_TYPE)
         )
         element.click()
 
     def targeting(self):
-        element = WebDriverWait(self.driver, 30, 0.1).until(
+        element = WebDriverWait(self.driver, 30, 1).until(
             lambda d: d.find_element_by_css_selector(self.PADS_TARGET)
         )
         element.click()
@@ -99,31 +99,37 @@ class Targeting(Component):
     WEEKEND = '.campaign-setting__preset-list>[data-name="weekends"]'
 
     def choice_time(self):
-        element = WebDriverWait(self.driver, 30, 0.1).until(
+        element = WebDriverWait(self.driver, 30, 1).until(
             lambda d: d.find_element_by_css_selector(self.TIME)
         )
         element.click()
 
+    def check_(self):
+        weekends_string = WebDriverWait(self.driver, 30, 2).until(
+            lambda d: d.find_element_by_css_selector(self.TIME).text
+        )
+        return weekends_string
+
     def choice_weekends(self):
-        element = WebDriverWait(self.driver, 30, 0.1).until(
+        element = WebDriverWait(self.driver, 30, 1).until(
             lambda d: d.find_element_by_css_selector(self.WEEKEND)
         )
         element.click()
 
     def choice_gender(self):
-        element = WebDriverWait(self.driver, 30, 0.1).until(
+        element = WebDriverWait(self.driver, 30, 1).until(
             lambda d: d.find_element_by_css_selector(self.GENDER)
         )
         element.click()
 
     def choice_gender_male(self):
-        element = WebDriverWait(self.driver, 30, 0.1).until(
+        element = WebDriverWait(self.driver, 30, 2).until(
             lambda d: d.find_element_by_css_selector(self.GENDER_MALE)
         )
         element.click()
 
     def choice_gender_female(self):
-        element = WebDriverWait(self.driver, 30, 0.1).until(
+        element = WebDriverWait(self.driver, 30, 1).until(
             lambda d: d.find_element_by_css_selector(self.GENDER_FEMALE)
         )
         element.click()
@@ -143,7 +149,7 @@ class StandartData(Component):
         return gender_string[0]
 
     def which_time_showing(self):
-        return WebDriverWait(self.driver, 30, 0.1).until(
+        return WebDriverWait(self.driver, 30, 2).until(
             lambda d: d.find_element_by_css_selector(self.ICON_CHECKED)
         )
 
@@ -169,13 +175,13 @@ class NewAdv(Component):
     RESET_BUTTON = '.banner-form__reset'
 
     def write_head_line(self, headline):
-        element = WebDriverWait(self.driver, 30, 0.1).until(
+        element = WebDriverWait(self.driver, 30, 1).until(
             lambda d: d.find_element_by_css_selector(self.HEADLINE)
         )
         element.send_keys(headline)
 
     def write_text(self, text):
-        element = WebDriverWait(self.driver, 30, 0.1).until(
+        element = WebDriverWait(self.driver, 30, 1).until(
             lambda d: d.find_element_by_css_selector(self.TEXT)
         )
         element.send_keys(text)
@@ -185,7 +191,7 @@ class NewAdv(Component):
 
     @property
     def url(self):
-        elements = WebDriverWait(self.driver, 30, 0.1).until(
+        elements = WebDriverWait(self.driver, 30, 1).until(
             lambda d: d.find_elements_by_css_selector(self.URL)
         )
         for element in elements:
@@ -194,13 +200,13 @@ class NewAdv(Component):
 
     def load_image(self, driver):
         image = driver.find_element_by_css_selector(self.IMAGE_SMALL)
-        return WebDriverWait(image, 30, 0.1).until(
+        return WebDriverWait(image, 30, 0.3).until(
                 lambda d: d.value_of_css_property("background-image") is not None
                 )
 
     def load_big_image(self, driver):
         image = driver.find_element_by_css_selector(self.IMAGE_BIG)
-        return WebDriverWait(image, 30, 0.1).until(
+        return WebDriverWait(image, 30, 0.3).until(
                 lambda d: d.value_of_css_property("background-image") is not None
                 )
 
@@ -215,12 +221,12 @@ class NewAdv(Component):
         element.send_keys(absolute_path)
 
     def wait_image(self):
-        WebDriverWait(self.driver, 30, 0.1).until(
+        WebDriverWait(self.driver, 30, 1).until(
             lambda d: self.load_image(d)
         )
 
     def wait_big_image(self):
-        WebDriverWait(self.driver, 30, 0.1).until(
+        WebDriverWait(self.driver, 30, 1).until(
             lambda d: self.load_big_image(d)
         )
 
@@ -228,7 +234,7 @@ class NewAdv(Component):
             self.driver.find_element_by_css_selector(self.SAVE_BUTTON).click()
 
     def reset(self):
-        element = WebDriverWait(self.driver, 30, 0.1).until(
+        element = WebDriverWait(self.driver, 30, 0.3).until(
             lambda d: d.find_element_by_css_selector(self.RESET_BUTTON)
         )
         element.click()
