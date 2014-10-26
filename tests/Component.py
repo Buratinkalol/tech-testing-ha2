@@ -98,6 +98,9 @@ class Targeting(Component):
     TIME = ".campaign-setting__wrapper_time > .campaign-setting__value"
     WEEKEND = '.campaign-setting__preset-list>[data-name="weekends"]'
 
+    WORKTIME = '.campaign-setting__preset-list>[data-name="workTime"]'
+    DAY = '.campaign-setting__week-days>[data-name="sat"]'
+
     def choice_time(self):
         element = WebDriverWait(self.driver, 30, 1).until(
             lambda d: d.find_element_by_css_selector(self.TIME)
@@ -109,6 +112,18 @@ class Targeting(Component):
             lambda d: d.find_element_by_css_selector(self.TIME).text
         )
         return weekends_string
+
+    def choice_day(self):
+        element = WebDriverWait(self.driver, 30, 1).until(
+            lambda d: d.find_element_by_css_selector(self.DAY)
+        )
+        element.click()
+
+    def choice_workdays(self):
+        element = WebDriverWait(self.driver, 30, 1).until(
+            lambda d: d.find_element_by_css_selector(self.WORKTIME)
+        )
+        element.click()
 
     def choice_weekends(self):
         element = WebDriverWait(self.driver, 30, 1).until(

@@ -132,3 +132,37 @@ class FuncTests(unittest.TestCase):
         create_page.new_advert.submit()
 
         create_page.ok_button.submit()
+
+    def test_hour(self):
+
+        print("Fifth Test")
+        auth_page = AuthPage(self.driver)
+        auth_page.open()
+
+        auth_form = auth_page.form
+        auth_form.write_domain(DOMAIN)
+        auth_form.write_login(USERNAME)
+        auth_form.write_password(PASSWORD)
+        auth_form.submit_auth()
+
+        create_page = CreatePage(self.driver)
+        create_page.open()
+        create_page.beginner_settings.campaign_name(CAMP_NAME)
+        create_page.beginner_settings.product_type()
+        create_page.beginner_settings.targeting()
+        create_page.new_advert.write_url(URL)
+        create_page.new_advert.set_big_photo(IMAGE_NAME2)
+        create_page.new_advert.wait_big_image()
+        create_page.new_advert.set_small_photo(IMAGE_NAME)
+        create_page.new_advert.wait_image()
+        create_page.new_advert.write_head_line(HEADLINE)
+        create_page.new_advert.write_text(TEXT)
+        create_page.new_advert.submit()
+
+        create_page.targeting.choice_time()
+        create_page.targeting.choice_workdays()
+        create_page.targeting.choice_day()
+        day = create_page.targeting.check_()
+        print(day)
+        self.assertEqual(u'Выбрано 79/168 ч', day)
+        create_page.ok_button.submit()
